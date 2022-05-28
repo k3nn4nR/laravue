@@ -25,6 +25,10 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "autoprefixer": "10.4.5"
+        "autoprefixer": "10.4.5",
+        "datatables.net": "^1.12.1",
+        "datatables.net-dt": "^1.12.1",
+        "laravel-echo": "^1.11.7",
+        "pusher-js": "^7.1.0-beta"
     }
 }

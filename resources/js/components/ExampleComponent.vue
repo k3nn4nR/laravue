@@ -9,6 +9,7 @@
                         I'm an example component.
                         <br>
                         {{ user.id }}
+                        <person-list/>
                     </div>
                 </div>
             </div>
@@ -17,10 +18,22 @@
 </template>
 
 <script>
+    import PersonList from './People/List.vue'
     export default {
+        components:{
+            PersonList,
+        },
         props:['user'],
+        data(){
+            return {
+
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            
+        },
+        methods:{
+
         }
     }
 </script>

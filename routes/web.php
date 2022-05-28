@@ -25,6 +25,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::middleware('auth')->group(function () {
+    
+    Route::name('people.')->group(function () {
+        Route::get('/people', [App\Http\Controllers\PersonController::class, 'index'])->name('index');
+        Route::post('/people', [App\Http\Controllers\PersonController::class, 'store'])->name('store');
+    });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/trigger/{data}', function ($data) {
+        echo "<p>You have sent $data</p>";
+        event(new App\Events\GetRequestEvent($data));
+    });
+});
