@@ -52,14 +52,14 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
-            this.getData();
+            Echo.channel('likeChannel').listen('new-person-registration', (e) => {
+                    this.getData();
+            });
         },
         methods:{
             getData(){
                 axios.get('/people').then(response=>{
                     this.people = response.data;
-                    $('#my-table').DataTable();
                 })
             }
         }

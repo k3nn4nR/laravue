@@ -14,8 +14,6 @@ class PersonRegisteredEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-
     /**
      * Create a new event instance.
      *
@@ -23,7 +21,7 @@ class PersonRegisteredEvent implements ShouldBroadcast
      */
     public function __construct()
     {
-        $this->message = $message;
+        //
     }
 
     /**
@@ -33,11 +31,6 @@ class PersonRegisteredEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['channel-personregistered'];
-    }
-
-    public function broadcastAs()
-    {
-        return 'my-event';
+        return new PrivateChannel('new-person-registration');
     }
 }
