@@ -20,21 +20,27 @@
                                     <div class="form-group">
                                         <label for="FirstName">First Surname</label>
                                         <input type="text" id="FirstName" class="form-control" v-model="first_surname">
-                                        <div v-for="(error,e) in errors.first_surname" :key="e"><p class="text-danger">{{ error }}</p></div>                                        
+                                        <div v-if="errors">
+                                            <div v-for="(error,e) in errors.first_surname" :key="e"><p class="text-danger">{{ error }}</p></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="SecondName">Second Surname</label>
                                         <input type="text" id="SecondName" class="form-control" v-model="second_surname">
-                                        <div v-for="(error,e) in errors.second_surname" :key="e"><p class="text-danger">{{ error }}</p></div>                                        
+                                        <div v-if="errors">
+                                            <div v-for="(error,e) in errors.second_surname" :key="e"><p class="text-danger">{{ error }}</p></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="Name">Name</label>
                                         <input type="text" id="Name" class="form-control" v-model="name">
-                                        <div v-for="(error,e) in errors.name" :key="e"><p class="text-danger">{{ error }}</p></div>                                        
+                                        <div v-if="errors">
+                                            <div v-for="(error,e) in errors.name" :key="e"><p class="text-danger">{{ error }}</p></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -45,6 +51,7 @@
                         </div>
                         <div v-if="error_message">
                             {{ showAlert() }}
+                            <div><p class="text-danger">{{ error_message }}</p></div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +78,6 @@
                 formdata.append('second_surname',this.second_surname)
                 formdata.append('name',this.name)
                 axios.post('/people',formdata).then(response=>{
-                    this.$emit('getData')
                     this.clear()
                 }).catch(error=>{
                     this.errors = error.response.data.errors

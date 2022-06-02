@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -31,6 +32,6 @@ class PersonRegisteredEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('new-person-registration');
+        return new Channel('personregistration');
     }
 }

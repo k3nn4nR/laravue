@@ -7,7 +7,7 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <person-create v-on:getData="getData()"/>
+                            <person-create/>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -51,10 +51,13 @@
                 people:[],
             }
         },
-        mounted() {
-            Echo.channel('likeChannel').listen('new-person-registration', (e) => {
-                    this.getData();
+        created(){
+            Echo.channel('personregistration')
+                .listen('PersonRegisteredEvent',(e) => {
+                this.getData();
             });
+        },
+        mounted() {
         },
         methods:{
             getData(){

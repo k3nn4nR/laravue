@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Events\PersonRegisteredEvent;
 use App\Http\Requests\StorePerson;
 use Illuminate\Http\Request;
 use DB;
@@ -44,11 +45,20 @@ class PersonController extends Controller
                 'second_surname' => ($request->input('second_surname')!=null)?mb_strtoupper($request->input('second_surname')):null,
                 'name' => mb_strtoupper($request->input('name'))
             ]);
+            PersonRegisteredEvent::dispatch($person);
             DB::commit();
-            return redirect('/home')->with('message', 'Person Registered');
+            return response()->json([
+                'message' => 'Person Registrada',
+                'code' => 200,
+                'error' => false
+            ], 201);
         } catch(\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('message', $e->getMessage());
+            return response()->json([
+                'message' => $e->getMessage(),
+                'code' => 500,
+                'error' => true
+            ], 500);
         }
     }
 
