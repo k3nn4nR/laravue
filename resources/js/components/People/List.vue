@@ -40,6 +40,7 @@
 
 <script>
     import datatable from 'datatables.net'
+    import $ from 'jquery'
     import PersonCreate from './Create.vue'
     export default {
         components:{
@@ -51,18 +52,22 @@
                 people:[],
             }
         },
-        created(){
-            Echo.channel('personregistration')
-                .listen('PersonRegisteredEvent',(e) => {
+        mounted(){
+            this.getData();
+            Echo.channel('personregistration').listen('PersonRegisteredEvent',(e) => {
                 this.getData();
             });
         },
-        mounted() {
-        },
         methods:{
+            table(){
+                this.$nextTick(()=>{
+                    $('#my-table').DataTable();
+                })
+            },
             getData(){
                 axios.get('/people').then(response=>{
                     this.people = response.data;
+                    this.table();
                 })
             }
         }

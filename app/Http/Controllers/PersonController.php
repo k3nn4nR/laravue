@@ -45,8 +45,8 @@ class PersonController extends Controller
                 'second_surname' => ($request->input('second_surname')!=null)?mb_strtoupper($request->input('second_surname')):null,
                 'name' => mb_strtoupper($request->input('name'))
             ]);
-            PersonRegisteredEvent::dispatch($person);
             DB::commit();
+            PersonRegisteredEvent::dispatch();
             return response()->json([
                 'message' => 'Person Registrada',
                 'code' => 200,
