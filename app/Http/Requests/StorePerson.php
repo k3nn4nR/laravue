@@ -24,9 +24,10 @@ class StorePerson extends FormRequest
     public function rules()
     {
         return [
-            'first_surname'     => 'required',
-            'second_surname'    => 'required',
-            'name'              => 'required',
+            'first_surname' => 'required',
+            'name'          => 'required',
+            'id_number'     => 'required|unique:person_documents',
+            'document_type' => 'required|exists:document_types,id',
         ];
     }
 }

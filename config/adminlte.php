@@ -242,81 +242,126 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            'label'       => 3,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Dashboards',
+            'icon'    => 'fas fa-chart-area',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'People',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
+                    'text'    => 'Logistics',
                     'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Works',
                     'url'  => '#',
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'    => 'Administration',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Contract Generate',
+                    'url'  => '#',
+                ],
+                [
+                    'text'    => 'People',
+                    'icon'  => 'fas fa-users',
+                    'url'     => 'human_resources',
+                ],
+                [
+                    'text'    => 'Clients',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Create',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        [
+                            'text' => 'List',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],                        
+                    ],
+                ],
+                [
+                    'text'    => 'Logistic',
+                    'icon'  => 'fas fa-truck',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Inventory',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        [
+                            'text' => 'Items',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        [
+                            'text' => 'Item Registration',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        
+                    ],
+                ],
+                [
+                    'text'    => 'Providers',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Create',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        [
+                            'text' => 'List',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],                        
+                    ],
+                ],
+            ],
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'    => 'Operations',
+            'icon'    => 'fas fa-briefcase',
+            'submenu' => [
+                [
+                    'text' => 'Documents',
+                    'url'  => '#',
+                ],
+                [
+                    'text'    => 'Works',
+                    'icon'    => 'fa-regular fa-person-digging',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'Create',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                        [
+                            'text' => 'List',
+                            'url'  => '#',
+                            // 'can'  => 'manage-blog',
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
 

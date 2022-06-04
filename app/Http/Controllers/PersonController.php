@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
-use App\Events\PersonRegisteredEvent;
-use App\Http\Requests\StorePerson;
+use App\Models\PersonDocument;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePerson;
+use App\Http\Requests\UpdatePerson;
+use App\Events\PersonRegisteredEvent;
 use DB;
 
 class PersonController extends Controller
@@ -17,7 +20,12 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return Person::get();
+        $people = Person::whereHas('person_documents', function ($query) {
+            $query->wherein('document_type_id', [1]);
+        })->with((['person_documents' => function ($query) {
+            $query->wherein('document_type_id', [1]);
+        }]))->with('status')->get();
+        return $people;
     }
 
     /**
@@ -27,7 +35,7 @@ class PersonController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -40,25 +48,31 @@ class PersonController extends Controller
     {
         DB::beginTransaction();
         try {
+            $status = Status::where('weighting',0)->get()->first();
             $person = Person::create([
                 'first_surname' => mb_strtoupper($request->input('first_surname')),
                 'second_surname' => ($request->input('second_surname')!=null)?mb_strtoupper($request->input('second_surname')):null,
                 'name' => mb_strtoupper($request->input('name'))
             ]);
+            $person->person_documents()->create([
+                'document_type_id' => $request->input('document_type'),
+                'id_number' => mb_strtoupper($request->input('id_number')),
+            ]);
+            $person->status()->attach($status);
             DB::commit();
-            PersonRegisteredEvent::dispatch();
+            broadcast(new PersonRegisteredEvent());
             return response()->json([
-                'message' => 'Person Registrada',
+                'message' => 'Person Registered',
                 'code' => 200,
                 'error' => false
-            ], 201);
+            ],201);
         } catch(\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'message' => $e->getMessage(),
                 'code' => 500,
-                'error' => true
-            ], 500);
+                'error' => false
+            ],500);
         }
     }
 
@@ -68,9 +82,12 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show($id_number)
     {
-        //
+        $person = PersonDocument::where('id_number',$id_number)->get()->first()->person;
+        $documents = $person->load('person_documents.document_type')->person_documents;
+        $contracts = $person->contracts()->with('incomes','positions')->withTrashed()->get();
+        return view('person.edit',compact('person','documents','contracts'));
     }
 
     /**
@@ -91,9 +108,10 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(UpdatePerson $request, Person $person)
     {
-        //
+        dd($person);
+        dd($request->all());
     }
 
     /**

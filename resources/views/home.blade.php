@@ -16,5 +16,4 @@
             </div>
         </div>
     </div>
-    <example-component :user="{{ json_encode(Auth::user()) }}"/>
 @stop
