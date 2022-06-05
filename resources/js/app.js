@@ -24,7 +24,10 @@ Vue.component('apexchart', VueApexCharts)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('people-list', require('./components/People/List.vue').default);
-Vue.component('people-dashboard', require('./components/Dasboard/People.vue').default);
+Vue.component('person-edit', require('./components/People/Edit.vue').default);
+Vue.component('work-list', require('./components/Work/List.vue').default);
+Vue.component('people-dashboard', require('./components/Dashboard/People.vue').default);
+Vue.component('qr-generator', require('./components/People/QrCodeGenerator.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

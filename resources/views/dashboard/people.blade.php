@@ -7,5 +7,5 @@
 @stop
 
 @section('content')
-    
+    <people-dashboard/>
 @stop

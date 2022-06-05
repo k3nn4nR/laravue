@@ -27,12 +27,12 @@
     "dependencies": {
         "apexcharts": "^3.35.3",
         "autoprefixer": "10.4.5",
-        "datatables.net": "^1.12.1",
-        "datatables.net-bs4": "^1.12.1",
-        "datatables.net-dt": "^1.12.1",
+        "jspdf": "^2.5.1",
         "laravel-echo": "^1.11.7",
         "pusher-js": "^7.1.0-beta",
         "sweetalert": "^2.1.2",
-        "vue-apexcharts": "^1.6.2"
+        "vue-apexcharts": "^1.6.2",
+        "vue-qr": "^4.0.9",
+        "vue-tables-2": "^2.3.5"
     }
 }

@@ -254,7 +254,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'People',
-                    'url'  => '#',
+                    'url'  => 'dashboard_people',
                 ],
                 [
                     'text'    => 'Logistics',
@@ -275,7 +275,7 @@ return [
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'People',
+                    'text'    => 'Human Resources',
                     'icon'  => 'fas fa-users',
                     'url'     => 'human_resources',
                 ],
@@ -347,19 +347,7 @@ return [
                 [
                     'text'    => 'Works',
                     'icon'    => 'fa-regular fa-person-digging',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Create',
-                            'url'  => '#',
-                            // 'can'  => 'manage-blog',
-                        ],
-                        [
-                            'text' => 'List',
-                            'url'  => '#',
-                            // 'can'  => 'manage-blog',
-                        ],
-                    ],
+                    'url'     => 'works',
                 ],
             ],
         ],

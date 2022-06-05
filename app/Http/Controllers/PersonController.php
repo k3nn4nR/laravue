@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePerson;
 use App\Http\Requests\UpdatePerson;
 use App\Events\PersonRegisteredEvent;
+use App\Events\personupdated;
 use DB;
 
 class PersonController extends Controller
@@ -87,7 +88,7 @@ class PersonController extends Controller
         $person = PersonDocument::where('id_number',$id_number)->get()->first()->person;
         $documents = $person->load('person_documents.document_type')->person_documents;
         $contracts = $person->contracts()->with('incomes','positions')->withTrashed()->get();
-        return view('person.edit',compact('person','documents','contracts'));
+        return compact('person','documents','contracts');
     }
 
     /**
@@ -96,9 +97,9 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function edit(Person $person)
+    public function edit($id_number)
     {
-        //
+        return view('person.edit',compact('id_number'));
     }
 
     /**
@@ -112,6 +113,7 @@ class PersonController extends Controller
     {
         dd($person);
         dd($request->all());
+        broadcast(new PersonUpdateEvent());
     }
 
     /**

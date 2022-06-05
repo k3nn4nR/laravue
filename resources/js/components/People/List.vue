@@ -9,7 +9,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table" id="my-table">
+                                <table class="table table-striped table-bordered" id="my-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID Number</th>
@@ -28,7 +28,7 @@
                                             <td>{{ person.name }}</td>
                                             <td>{{ person.status[person.status.length-1].status }}</td>
                                             <td>
-                                                <i class="fas fa-edit" ></i>
+                                                <i class="fas fa-edit" @click="edit(person.person_documents[person.person_documents.length-1].id_number)" ></i>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import datatable from 'datatables.net-bs4'
+    import datatable from 'datatables.net-select-bs5'
     import $ from 'jquery'
     import PersonCreate from './Create.vue'
     export default {
@@ -56,7 +56,7 @@
                 people:[],
             }
         },
-        mounted(){
+        mounted(){ 
             this.getData();
             Echo.channel('personregistration').listen('PersonRegisteredEvent',(e) => {
                 this.getData();
@@ -65,7 +65,10 @@
         methods:{
             table(){
                 this.$nextTick(()=>{
-                    $('#my-table').DataTable();
+                    $('#my-table').DataTable({
+                        select:true,
+                        select:{style:'multi'},
+                    });
                 })
             },
             getData(){
@@ -74,7 +77,10 @@
                     $('#my-table').DataTable().destroy();
                     this.table();
                 })
-            }
+            },
+            edit(id){
+                window.location.href = '/people/'+id+'/edit'
+            },
         }
     }
 </script>

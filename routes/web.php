@@ -23,10 +23,15 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/human_resources', function(){return view('human_resources');})->name('human_resources');
+    Route::get('/works', function(){return view('works');})->name('works');
+    Route::get('/dashboard_people', function(){return view('dashboard.people');})->name('dashboard_people');
 
     Route::name('people.')->group(function () {
         Route::get('/people', [App\Http\Controllers\PersonController::class, 'index'])->name('index');
         Route::post('/people', [App\Http\Controllers\PersonController::class, 'store'])->name('store');
+        Route::put('/people/{person}', [App\Http\Controllers\PersonController::class, 'update'])->name('update');
+        Route::get('/people/{id_number}', [App\Http\Controllers\PersonController::class, 'show'])->name('show');
+        Route::get('/people/{id_number}/edit', [App\Http\Controllers\PersonController::class, 'edit'])->name('edit');
     });
 
     Route::name('item.')->group(function () {

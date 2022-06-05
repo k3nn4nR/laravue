@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreWork;
 use App\Http\Requests\UpdateWork;
 use App\Http\Requests\StorePeopleToWork;
+use App\Events\WorkRegisteredEvent;
 use DB;
 
 class WorkController extends Controller
@@ -27,8 +28,7 @@ class WorkController extends Controller
         $actives = Work::whereIn('id',Statusable::whereIn('status_id',[2,4])->where('statusable_type','App\Models\Work')->get('statusable_id'))->get();
         $in_progress = Work::whereIn('id',Statusable::where('status_id',6)->where('statusable_type','App\Models\Work')->get('statusable_id'))->get();
         $finished = Work::whereIn('id',Statusable::where('status_id',7)->where('statusable_type','App\Models\Work')->get('statusable_id'))->get();
-        $message = 'Data Loaded';
-        return view('work.list',compact(['message','inactives','actives','in_progress','finished']));
+        return compact(['inactives','actives','in_progress','finished']);
     }
 
     /**
@@ -69,6 +69,7 @@ class WorkController extends Controller
                     'works_work_id' => $work_work->id,
                 ]);
             }
+            broadcast(new WorkRegisteredEvent());
             DB::commit();
             return redirect()->back()->with('message', 'Work Registered');
         } catch(\Exception $e) {
