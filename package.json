@@ -27,6 +27,7 @@
     "dependencies": {
         "apexcharts": "^3.35.3",
         "autoprefixer": "10.4.5",
+        "datatables.net-bs5": "^1.12.1",
         "jspdf": "^2.5.1",
         "laravel-echo": "^1.11.7",
         "pusher-js": "^7.1.0-beta",
