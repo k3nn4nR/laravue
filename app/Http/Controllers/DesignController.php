@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Design;
+use App\Events\DesignRegisteredEvent;
 use Illuminate\Http\Request;
 
 class DesignController extends Controller
@@ -14,7 +15,7 @@ class DesignController extends Controller
      */
     public function index()
     {
-        //
+        return Design::get();
     }
 
     /**
@@ -35,7 +36,7 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        broadcast(new DesignRegisteredEvent());
     }
 
     /**

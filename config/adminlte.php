@@ -296,27 +296,9 @@ return [
                     ],
                 ],
                 [
-                    'text'    => 'Logistic',
+                    'text'    => 'Logistics',
                     'icon'  => 'fas fa-truck',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Inventory',
-                            'url'  => '#',
-                            // 'can'  => 'manage-blog',
-                        ],
-                        [
-                            'text' => 'Items',
-                            'url'  => '#',
-                            // 'can'  => 'manage-blog',
-                        ],
-                        [
-                            'text' => 'Item Registration',
-                            'url'  => '#',
-                            // 'can'  => 'manage-blog',
-                        ],
-                        
-                    ],
+                    'url'     => 'logistics',
                 ],
                 [
                     'text'    => 'Providers',

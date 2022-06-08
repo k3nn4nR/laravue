@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePerson;
 use App\Http\Requests\UpdatePerson;
 use App\Events\PersonRegisteredEvent;
-use App\Events\personupdated;
+use App\Events\PersonUpdated;
 use DB;
 
 class PersonController extends Controller

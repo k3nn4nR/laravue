@@ -10,6 +10,9 @@ use App\Models\Code;
 use App\Http\Requests\StoreItem;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\Events\ItemRegisteredEvent;
+use App\Events\ItemUpdatedEvent;
+
 use DB;
 
 class ItemController extends Controller
@@ -21,9 +24,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::get();
-        $message = 'Data Loaded';
-        return view('item.index',compact('items','message'));
+        $items = Item::with('code')->get();
+        return $items;
     }
 
     /**
@@ -52,10 +54,19 @@ class ItemController extends Controller
             ]);
             $item->code()->save(new Code(['code' => mb_strtoupper($request->input('code'))]));
             DB::commit();
-            return redirect('/item')->with('message', 'Item Registered');
+            broadcast(new ItemRegisteredEvent());
+            return response()->json([
+                'message' => 'Item Registered',
+                'code' => 200,
+                'error' => false
+            ],201);
         } catch(\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('message', $e->getMessage());
+            return response()->json([
+                'message' => $e->getMessage(),
+                'code' => 500,
+                'error' => false
+            ],500);
         }
     }
 
@@ -71,8 +82,11 @@ class ItemController extends Controller
             'codeable',
             [Item::class],
         )->get()->where('code',$code)->first();
-        $item = Item::find($code->codeable_id);
-        return view('item.edit',compact('item','code'));
+        $item = Item::find($code->codeable_id)->load('code','brands','designs');
+        $brands = $item->load('brands.code')->brands;
+        $models = $item->load('designs.code')->designs;
+        $item = Item::find($code->codeable_id)->load('code');
+        return compact('item','brands','models');
     }
 
     /**
@@ -81,9 +95,9 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit($code)
     {
-        //
+        return view('item.edit',compact('code'));
     }
 
     /**
@@ -95,7 +109,8 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        dd($item);
+        broadcast(new ItemUpdatedEvent());
     }
 
     /**

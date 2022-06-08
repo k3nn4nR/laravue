@@ -26,6 +26,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('people-list', require('./components/People/List.vue').default);
 Vue.component('person-edit', require('./components/People/Edit.vue').default);
 Vue.component('work-list', require('./components/Work/List.vue').default);
+Vue.component('item-list', require('./components/Item/List.vue').default);
+Vue.component('item-edit', require('./components/Item/Edit.vue').default);
 Vue.component('people-dashboard', require('./components/Dashboard/People.vue').default);
 Vue.component('qr-generator', require('./components/People/QrCodeGenerator.vue').default);
 

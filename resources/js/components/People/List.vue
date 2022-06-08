@@ -7,10 +7,6 @@
                         <div class="row">
                             <person-create/>
                             <qr-generate ref="QrCodeRef"/>
-                            <!-- 
-                                agregar deshabilitado hasta haber seleccionado alguno
-                                falta agregar unchecked eliminar el item del arreglo cuando se elimine el check
-                             -->
                         </div>
                         <div class="row">
                             <div class="col-sm-12">

@@ -23,6 +23,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/human_resources', function(){return view('human_resources');})->name('human_resources');
+    Route::get('/logistics', function(){return view('logistics');})->name('logistics');
     Route::get('/works', function(){return view('works');})->name('works');
     Route::get('/dashboard_people', function(){return view('dashboard.people');})->name('dashboard_people');
 
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/item', [App\Http\Controllers\ItemController::class, 'store'])->name('store');
         Route::put('/item', [App\Http\Controllers\ItemController::class, 'update'])->name('update');
         Route::get('/item/{code}', [App\Http\Controllers\ItemController::class, 'show'])->name('show');
+        Route::get('/item/{code}/edit', [App\Http\Controllers\ItemController::class, 'edit'])->name('edit');
         Route::get('/item-registration', [App\Http\Controllers\ItemController::class, 'create'])->name('create');
     });
 
@@ -120,5 +122,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/work-people', [App\Http\Controllers\WorkController::class, 'storePeople'])->name('storePeople');
         Route::put('/work/{work}', [App\Http\Controllers\WorkController::class, 'update'])->name('update');
         Route::get('/work/{work}', [App\Http\Controllers\WorkController::class, 'show'])->name('show');
+    });
+
+    Route::name('brand.')->group(function () {
+        Route::get('/brand', [App\Http\Controllers\BrandController::class, 'index'])->name('index');
+        Route::post('/brand', [App\Http\Controllers\BrandController::class, 'store'])->name('store');
+    });
+
+    Route::name('design.')->group(function () {
+        Route::get('/design', [App\Http\Controllers\DesignController::class, 'index'])->name('index');
+        Route::post('/design', [App\Http\Controllers\DesignController::class, 'store'])->name('store');
     });
 });

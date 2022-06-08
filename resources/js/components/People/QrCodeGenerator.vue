@@ -1,7 +1,11 @@
 <template>
 
     <div>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#generatemodal" data-bs-backdrop="static">
+        <button v-if="peopleSelected.length==0" type="button" class="btn btn-success disabled">
+            Qr Generate
+        </button>
+
+        <button v-else type="button" class="btn btn-success" data-toggle="modal" data-target="#generatemodal" data-bs-backdrop="static">
             Qr Generate
         </button>
 
@@ -34,7 +38,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="success" @click="generatePDF" >Generar</button>
+                            <button type="button" class="btn btn-success" @click="generatePDF" >Generar</button>
                         </div>
                     </div>
                 </div>
@@ -54,7 +58,21 @@
         },
         methods:{
             personSelectedAdd(item){
-                this.peopleSelected.push(item)
+                let index = 0
+                let position = false
+                this.peopleSelected.forEach(person=>{
+                    if(person.person_documents[person.person_documents.length-1].id_number !== item.person_documents[item.person_documents.length-1].id_number)
+                    {
+                        index++;
+                    }else{
+                        position = index
+                    }
+                })
+                console.log(position)
+                if(position === false)
+                    this.peopleSelected.push(item)
+                else
+                    this.peopleSelected.splice(position,1)
             },
             test(dataUrl,id){
                 this.peopleSelected.forEach(item=>{

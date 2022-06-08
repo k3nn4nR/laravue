@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Events\BrandRegisteredEvent;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -14,7 +15,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        return Brand::all();
     }
 
     /**
@@ -35,7 +36,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        broadcast(new BrandRegisteredEvent());
     }
 
     /**
