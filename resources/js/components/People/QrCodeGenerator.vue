@@ -68,7 +68,6 @@
                         position = index
                     }
                 })
-                console.log(position)
                 if(position === false)
                     this.peopleSelected.push(item)
                 else

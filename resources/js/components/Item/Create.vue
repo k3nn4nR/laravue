@@ -72,14 +72,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <qrcode-stream
-                                    :key="_uid"
-                                    :track="paintCenterText"
-                                    @init="onInit" :camera="camera" :torch="torchActive"  @decode="onDecode">
-                                    <v-icon @click="switchCamera">{{ 'fas fa-exchange-alt' }}</v-icon>
-                                    <v-icon @click="SwitchTorchActive" :disabled="torchNotSupported">{{ icon }}</v-icon>
-                                </qrcode-stream>
-
+                                <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -94,10 +87,13 @@
 </template>
 
 <script>
-    import { QrcodeStream, } from 'vue-qrcode-reader'
+    import { StreamBarcodeReader } from "vue-barcode-reader";
     import swal from 'sweetalert'
     export default {
-        PROPS:['item_id'],
+        components:{
+            StreamBarcodeReader,
+        },
+        props:['item_id'],
         data(){
             return {
                 code:'',
@@ -110,9 +106,6 @@
                 design:'',
                 designtoggle:true,
                 brandtoggle:true,
-                camera: 'front',
-                torchActive: false,
-                torchNotSupported: false,
 
             }
         },
@@ -124,7 +117,6 @@
             Echo.channel('brandregistered').listen('BrandRegisteredEvent',(e) => {
                 this.getData();
             });
-            this.onInit()
         },
         methods:{
             getData(){
@@ -163,47 +155,11 @@
                 this.brand = ''
                 this.design = ''
             },
-            switchCamera () {
-                switch (this.camera) {
-                    case 'front':
-                    this.camera = 'rear'
-                    break
-                    case 'rear':
-                    this.camera = 'front'
-                    break
-                }
+            onDecode(result){
+                console.log(result)
             },
-            SwitchTorchActive(){
-                if(this.torchActive){
-                    this.torchActive = false;
-                }else{
-                    this.torchActive = true;
-                }
-            },
-            onDecode(id_number){
-                this.code = id_number
-            },
-            async onInit (promise) {
-                try{
-                    const { capabilities } = await promise
-                    this.torchNotSupported = !capabilities.torch
-                } catch (error) {
-                }
-                try {
-                    await promise
-                } catch (error) {
-                    const triedFrontCamera = this.camera === 'front'
-                    const triedRearCamera = this.camera === 'rear'
-                    const cameraMissingError = error.name === 'OverconstrainedError'
-                    if (triedRearCamera && cameraMissingError) {
-                        this.noRearCamera = true
-                    }
-                    if (triedFrontCamera && cameraMissingError) {
-                        this.noFrontCamera = true
-                    }
-                } finally {
-                    this.loading = false
-                }
+            onLoaded() {
+                console.log("load");
             },
         }
     }

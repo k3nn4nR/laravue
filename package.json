@@ -33,6 +33,7 @@
         "pusher-js": "^7.1.0-beta",
         "sweetalert": "^2.1.2",
         "vue-apexcharts": "^1.6.2",
+        "vue-barcode-reader": "^0.0.3",
         "vue-qr": "^4.0.9",
         "vue-qrcode-reader": "^3.1.0",
         "vue-tables-2": "^2.3.5"
